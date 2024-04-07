@@ -2,11 +2,10 @@ import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, ScrollView, Pressable } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Board from '../components/board';
-import { makePuzzle, pluck } from '../utils/puzzleGenerator';
+
 import Numpad from '../components/numpad';
-import { useSelector, useDispatch } from 'react-redux';
-import { setPuzzle } from '../store/puzzle/puzzleSlice';
+import { generatePuzzle } from '../utils/generator';
+import SudokuGrid from '../components/grid';
 
 export default function Game() {
 
@@ -14,24 +13,9 @@ export default function Game() {
     const [minutes, setMinutes] = useState(0)
     const [seconds, setSeconds] = useState(0)
 
-    const puzzle = useSelector((state) => state.puzzle.puzzle)
-    const dispatch = useDispatch()
+    const puzzle = generatePuzzle(30);
 
-    useEffect(() => {
-        // Generate solved puzzle
-        const puzzleArray = makePuzzle();
-        // Remove 30 cells from the puzzle
-        const newPuzzle = pluck(puzzleArray, 30);
-        console.log('new puzzle', newPuzzle[0])
-        let arr = []
-        newPuzzle?.puzzle?.map(num => {
-            arr.push(num)
-        })
-        console.log('new array before set', arr[0])
-        dispatch(setPuzzle(arr))
-        console.log('new array after set', puzzle[0])
-    }, []);
-
+    // Timer
     useEffect(() => {
         const timer = () => {
             setSeconds(seconds + 1);
@@ -57,7 +41,7 @@ export default function Game() {
             <ScrollView contentContainerStyle={styles.contentContainer} showsVerticalScrollIndicator={false} horizontal={false}>
 
                 <View style={styles.header}>
-                    <Text style={styles.timer}>{hours < 1 ? null : hours + ':'} {minutes > 9 ? minutes : '0' + minutes} : { seconds > 9 ? seconds : '0' + seconds}</Text>
+                    <Text style={styles.timer}>{hours < 1 ? null : hours + ':'} {minutes > 9 ? minutes : '0' + minutes} : {seconds > 9 ? seconds : '0' + seconds}</Text>
                     <Pressable onPress={() => { }}>
                         <Ionicons style={styles.refreshBtn} name='refresh-outline' size={32} />
                     </Pressable>
@@ -65,7 +49,7 @@ export default function Game() {
 
                 <Text style={styles.difficulty}>Advanced</Text>
 
-                <Board />
+                <SudokuGrid puzzle={puzzle} />
 
                 <Numpad />
 
@@ -83,7 +67,6 @@ const styles = StyleSheet.create({
     },
     contentContainer: {
         paddingVertical: 30,
-        paddingHorizontal: 20,
     },
     header: {
         flexDirection: 'row',
@@ -99,6 +82,7 @@ const styles = StyleSheet.create({
     difficulty: {
         fontFamily: 'Inter-Tight-Regular',
         marginTop: 10,
+        marginBottom: 20,
         fontSize: 21,
         color: '#aaa'
     }

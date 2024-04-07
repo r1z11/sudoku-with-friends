@@ -5,7 +5,7 @@ export default function Numpad() {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <Pressable onPress={()=>{}}><Text style={styles.number}>1</Text></Pressable>
+                <Pressable onPress={() => { }}><Text style={styles.number}>1</Text></Pressable>
                 <Text style={styles.number}>2</Text>
                 <Text style={styles.number}>3</Text>
             </View>
@@ -19,7 +19,7 @@ export default function Numpad() {
                 <Text style={styles.number}>8</Text>
                 <Text style={styles.number}>9</Text>
             </View>
-            <Ionicons style={styles.btn} name='backspace-outline' size={32}/>
+            <Ionicons style={styles.btn} name='backspace-outline' size={32} />
         </View>
     );
 }
