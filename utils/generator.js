@@ -58,10 +58,3 @@ export function generatePuzzle(emptyCells) {
 
     return grid;
 }
-
-// Generate and display a Sudoku puzzle
-const puzzle = generatePuzzle(30);
-
-for (let row = 0; row < 9; row++) {
-    console.log(puzzle[row].join(" "));
-}

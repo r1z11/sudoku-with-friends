@@ -1,11 +1,12 @@
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { TouchableOpacity } from 'react-native-web';
 
 export default function Numpad() {
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <Pressable onPress={() => { }}><Text style={styles.number}>1</Text></Pressable>
+                <TouchableOpacity onPress={() => { }}><Text style={styles.number}>1</Text></TouchableOpacity>
                 <Text style={styles.number}>2</Text>
                 <Text style={styles.number}>3</Text>
             </View>

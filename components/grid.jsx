@@ -1,14 +1,33 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useEffect } from 'react';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 
-function SudokuGrid({puzzle}) {
+import { arraysAreEqual, themeCell } from '../utils/helpers';
+import { selectCell } from '../store/puzzle/puzzleSlice';
+
+function SudokuGrid({ puzzle }) {
+
+    const cellSelected = useSelector(state => state.puzzle.cellSelected);
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        // update cell
+    }, [cellSelected]);
 
     const renderRow = (row, rowIndex) => (
         <View key={rowIndex} style={styles.row}>
             {row.map((cell, colIndex) => (
-                <View key={colIndex} style={styles.cell}>
+                <Pressable
+                    key={colIndex}
+                    style={[
+                        styles.cell,
+                        (arraysAreEqual(cellSelected, [rowIndex, colIndex]) ?
+                            styles.selectedCellBg : (themeCell([rowIndex, colIndex]) ?
+                                styles.darkBg : null))]}
+                    onPress={() => { dispatch(selectCell([rowIndex, colIndex])) }}
+                >
                     <Text style={styles.cellText}>{cell === 0 ? '' : cell}</Text>
-                </View>
+                </Pressable>
             ))}
         </View>
     );
@@ -39,6 +58,12 @@ const styles = StyleSheet.create({
     cellText: {
         fontSize: 20,
     },
+    darkBg: {
+        backgroundColor: '#CCC'
+    },
+    selectedCellBg: {
+        backgroundColor: '#AAA'
+    }
 });
 
 export default SudokuGrid;

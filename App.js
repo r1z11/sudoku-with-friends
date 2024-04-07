@@ -1,46 +1,38 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import { Component } from "react";
-
-import * as Font from "expo-font";
 import { Provider } from "react-redux";
+import { useFonts } from "expo-font";
+// import * as SplashScreen from 'expo-splash-screen';
 
-import Game from "./pages";
+import Game from "./screens";
 import store from "./store/store";
 
-let customFonts = {
-  "Inter-Tight-Regular": require("./assets/fonts/Inter_Tight/static/InterTight-Regular.ttf"),
-  "Inter-Tight-Bold": require("./assets/fonts/Inter_Tight/static/InterTight-Bold.ttf"),
-};
+export default function App() {
 
-export default class App extends Component {
-  state = {
-    fontsLoaded: false,
-  };
+  const [fontsLoaded, fontError] = useFonts({
+    "Inter-Tight-Regular": require("./assets/fonts/Inter_Tight/static/InterTight-Regular.ttf"),
+    "Inter-Tight-Bold": require("./assets/fonts/Inter_Tight/static/InterTight-Bold.ttf"),
+  });
 
-  async _loadFontsAsync() {
-    await Font.loadAsync(customFonts);
-    this.setState({ fontsLoaded: true });
+  // const onLayoutRootView = useCallback(async () => {
+  //   if (fontsLoaded || fontError) {
+  //     await SplashScreen.hideAsync();
+  //   }
+  // }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) {
+    return null;
   }
 
-  componentDidMount() {
-    this._loadFontsAsync();
-  }
-
-  render() {
-    if (!this.state.fontsLoaded) {
-      return null;
-    }
-
-    return (
-      <Provider store={store}>
-        <View style={styles.container}>
-          <Game />
-          <StatusBar style="auto" />
-        </View>
-      </Provider>
-    );
-  }
+  return (
+    <Provider store={store}>
+      {/* <View style={styles.container} onLayout={onLayoutRootView}> */}
+      <View style={styles.container}>
+        <Game />
+        <StatusBar style="auto" />
+      </View>
+    </Provider>
+  );
 }
 
 const styles = StyleSheet.create({
