@@ -1,1 +1,2 @@
-# sudoku-with-friends
+# Sudoku with Friends
+ React native Expo Sudoku game 
