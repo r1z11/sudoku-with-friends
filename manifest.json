@@ -1,0 +1,9 @@
+{
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "lang": "en",
+  "name": "sudoku-with-friends",
+  "short_name": "sudoku-with-friends",
+  "start_url": "/?utm_source=web_app_manifest",
+  "orientation": "portrait"
+}

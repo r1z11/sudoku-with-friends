@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.js": "/sudoku-with-friends/static/js/main.1cdc0ad7.js",
+    "static/js/698.db7b405d.js": "/sudoku-with-friends/static/js/698.db7b405d.js",
+    "static/media/InterTight-Bold.ttf": "/sudoku-with-friends/static/media/InterTight-Bold.b7d1aba05d534b8cc4bc.ttf",
+    "static/media/InterTight-Regular.ttf": "/sudoku-with-friends/static/media/InterTight-Regular.09256c34afce3ffd7f26.ttf",
+    "static/media/Ionicons.ttf": "/sudoku-with-friends/static/media/Ionicons.3517aeaa34b2f8cd8eef.ttf",
+    "favicon.ico": "/sudoku-with-friends/favicon.ico",
+    "index.html": "/sudoku-with-friends/index.html",
+    "favicon-32.png": "/sudoku-with-friends/favicon-32.png",
+    "favicon-16.png": "/sudoku-with-friends/favicon-16.png",
+    "manifest.json": "/sudoku-with-friends/manifest.json",
+    "serve.json": "/sudoku-with-friends/serve.json",
+    "main.1cdc0ad7.js.map": "/sudoku-with-friends/static/js/main.1cdc0ad7.js.map",
+    "698.db7b405d.js.map": "/sudoku-with-friends/static/js/698.db7b405d.js.map"
+  },
+  "entrypoints": [
+    "static/js/698.db7b405d.js",
+    "static/js/main.1cdc0ad7.js"
+  ]
+}
