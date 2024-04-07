@@ -22,8 +22,19 @@ const puzzleSlice = createSlice({
     },
     updateCell(state, action) {
       const number = action.payload.number;
-      const cell = action.payload.number;
-      state.puzzle[cell] = number;
+      const cell = action.payload.cell;
+      const puzzle = action.payload.puzzle;
+
+      if (puzzle[cell[0]][cell[1]] == 0) {
+        for (let i = 0; i < puzzle.length; i++) {
+          for (let j = 0; j < puzzle[i].length; j++) {
+            console.log(cell, [i, j])
+            if (cell[0] == i && cell[1] == j) {
+              state.puzzle[i][j] = number;
+            }
+          }
+        }
+      }
     },
   }
 });

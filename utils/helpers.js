@@ -26,6 +26,10 @@ export function themeCell(index) {
     return false;
 }
 
+function checkGrid(array) {
+    let i = [0,1,2,3,4,5,6,7,8]
+}
+
 // Find an array in an array of arrays
 function findArray(arrayOfArrays, arrayToFind) {
     const foundArray = arrayOfArrays.find(array => JSON.stringify(array) === JSON.stringify(arrayToFind));

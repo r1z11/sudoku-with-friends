@@ -4,10 +4,12 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { arraysAreEqual, themeCell } from '../utils/helpers';
 import { selectCell } from '../store/puzzle/puzzleSlice';
+import { colours } from '../utils/constants';
 
 function SudokuGrid({ puzzle }) {
 
     const cellSelected = useSelector(state => state.puzzle.cellSelected);
+    
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -59,10 +61,10 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
     darkBg: {
-        backgroundColor: '#CCC'
+        backgroundColor: colours.gray
     },
     selectedCellBg: {
-        backgroundColor: '#AAA'
+        backgroundColor: colours.darkGray
     }
 });
 

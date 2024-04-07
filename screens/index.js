@@ -25,10 +25,6 @@ export default function Game() {
         toggleTimer();
     }, []);
 
-    useEffect(() => {
-        // update puzzle
-    }, [puzzle]);
-
     // Timer
     useEffect(() => {
 
@@ -65,7 +61,7 @@ export default function Game() {
                     </TouchableOpacity>
                 </View>
 
-                <Text style={styles.difficulty}>Advanced</Text>
+                <Text style={styles.difficulty}>Basic</Text>
 
                 <SudokuGrid puzzle={puzzle} />
 
