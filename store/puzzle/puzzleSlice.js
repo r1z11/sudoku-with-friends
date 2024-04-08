@@ -7,7 +7,8 @@ import {
 
 const initialState = {
   puzzle: [],
-  cellSelected: []
+  cellSelected: null,
+  difficulty: 31
 };
 
 const puzzleSlice = createSlice({
@@ -22,19 +23,14 @@ const puzzleSlice = createSlice({
     },
     updateCell(state, action) {
       const number = action.payload.number;
-      const cell = action.payload.cell;
+      const index = action.payload.index;
       const puzzle = action.payload.puzzle;
 
-      if (puzzle[cell[0]][cell[1]] == 0) {
-        for (let i = 0; i < puzzle.length; i++) {
-          for (let j = 0; j < puzzle[i].length; j++) {
-            console.log(cell, [i, j])
-            if (cell[0] == i && cell[1] == j) {
-              state.puzzle[i][j] = number;
-            }
-          }
-        }
-      }
+      if (puzzle[index].edit)
+        state.puzzle[index].value = number;
+    },
+    setDifficulty(state, action) {
+      state.difficulty = action.payload;
     },
   }
 });
@@ -42,7 +38,8 @@ const puzzleSlice = createSlice({
 export const {
   setPuzzle,
   selectCell,
-  updateCell
+  updateCell,
+  setDifficulty
 } = puzzleSlice.actions;
 
 export default puzzleSlice.reducer;

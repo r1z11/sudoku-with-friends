@@ -1,8 +1,10 @@
 // Colours
 export const colours = {
     blue: '#5899E2',
-    gray: '#CCCCCC',
-    darkGray: '#AAAAAA'
+    gray: '#DDDDDD',
+    darkGray: '#AAAAAA',
+    light: '#FFFFFF',
+    dark: '#333333'
 }
 
 // Levels

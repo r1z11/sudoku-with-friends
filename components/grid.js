@@ -1,42 +1,38 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { arraysAreEqual, themeCell } from '../utils/helpers';
+import { themeCell } from '../utils/helpers';
 import { selectCell } from '../store/puzzle/puzzleSlice';
 import { colours } from '../utils/constants';
 
 function SudokuGrid({ puzzle }) {
 
     const cellSelected = useSelector(state => state.puzzle.cellSelected);
-    
+
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        // update cell
-    }, [cellSelected]);
+    // Render a single cell
+    const renderCell = (object, index) => (
+        <Pressable
+            key={index}
+            style={[styles.cell, cellSelected == object.index ? styles.selectedCellBg : (themeCell(object.index) ? styles.darkBg : null)]}
+            onPress={() => dispatch(selectCell(object.index))}
+        >
+            <Text style={[styles.cellText, {color: object.textColour}]}>{object.value == 0 ? '' : object.value}</Text>
+        </Pressable>
+    );
 
-    const renderRow = (row, rowIndex) => (
-        <View key={rowIndex} style={styles.row}>
-            {row.map((cell, colIndex) => (
-                <Pressable
-                    key={colIndex}
-                    style={[
-                        styles.cell,
-                        (arraysAreEqual(cellSelected, [rowIndex, colIndex]) ?
-                            styles.selectedCellBg : (themeCell([rowIndex, colIndex]) ?
-                                styles.darkBg : null))]}
-                    onPress={() => { dispatch(selectCell([rowIndex, colIndex])) }}
-                >
-                    <Text style={styles.cellText}>{cell === 0 ? '' : cell}</Text>
-                </Pressable>
-            ))}
+    // Render a row of cells
+    const renderRow = (i) => (
+        <View key={i} style={styles.row}>
+            {puzzle.slice(i, i + 9).map(renderCell)}
         </View>
     );
 
     return (
         <View style={styles.container}>
-            {puzzle.map((row, rowIndex) => renderRow(row, rowIndex))}
+            {Array.from({ length: 9 }, (_, index) => index * 9).map(renderRow)}
         </View>
     );
 }

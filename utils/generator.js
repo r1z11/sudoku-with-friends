@@ -1,3 +1,5 @@
+import { createGrid } from "./helpers";
+
 export function generatePuzzle(emptyCells) {
     const grid = Array.from({ length: 9 }, () => Array(9).fill(0));
 
@@ -56,5 +58,6 @@ export function generatePuzzle(emptyCells) {
         grid[row][col] = 0;
     }
 
-    return grid;
+    let newGrid = createGrid(grid);
+    return newGrid;
 }

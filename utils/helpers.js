@@ -1,33 +1,13 @@
+import { colours } from "./constants";
+
 // Determine if a cell should be dark or light
 export function themeCell(index) {
-    // console.log('theme cell', index);
+    let darkCells = [0, 1, 2, 6, 7, 8, 9, 10, 11, 15, 16, 17, 18, 19, 20, 24, 25, 26, 30, 31, 32, 39, 40, 41, 48, 49, 50, 54, 55, 56, 60, 61, 62, 63, 64, 65, 69, 70, 71, 72, 73, 74, 78, 79, 80];
 
-    const darkArray = [
-        [0, 0], [0, 1], [0, 2],
-        [1, 0], [1, 1], [1, 2],
-        [2, 0], [2, 1], [2, 2],
-        [0, 6], [0, 7], [0, 8],
-        [1, 6], [1, 7], [1, 8],
-        [2, 6], [2, 7], [2, 8],
-        [3, 3], [3, 4], [3, 5],
-        [4, 3], [4, 4], [4, 5],
-        [5, 3], [5, 4], [5, 5],
-        [6, 0], [6, 1], [6, 2],
-        [7, 0], [7, 1], [7, 2],
-        [8, 0], [8, 1], [8, 2],
-        [6, 6], [6, 7], [6, 8],
-        [7, 6], [7, 7], [7, 8],
-        [8, 6], [8, 7], [8, 8],
-    ]
-
-    if (findArray(darkArray, index)) {
+    if (darkCells.includes(index))
         return true;
-    }
-    return false;
-}
-
-function checkGrid(array) {
-    let i = [0,1,2,3,4,5,6,7,8]
+    else
+        return false;
 }
 
 // Find an array in an array of arrays
@@ -46,7 +26,10 @@ export const formatTime = (seconds) => {
     const minutes = Math.floor((seconds % 3600) / 60);
     const remainingSeconds = seconds % 60;
 
-    return `${hours}:${minutes}:${remainingSeconds}`;
+    if(hours == 0)
+    return `${minutes < 10 ? '0' + minutes : minutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
+    if(hours > 0)
+    return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${remainingSeconds < 10 ? '0' + remainingSeconds : remainingSeconds}`;
 }
 
 // Check if 2 arrays are equal
@@ -65,4 +48,40 @@ export function arraysAreEqual(arr1, arr2) {
 
     // If all elements are equal and the arrays have the same length, they are equal
     return true;
+}
+
+// Convert sudoku grid array into an array of cell objects
+export function createGrid(puzzle) {
+    let grid = []
+    let counter = 0
+
+    for (let i = 0; i < puzzle.length; i++) {
+        for (let j = 0; j < puzzle[i].length; j++) {
+            grid.push({
+                index: counter,
+                value: puzzle[i][j],
+                textColour: puzzle[i][j] == 0 ? colours.blue : colours.dark,
+                bgColour: colours.light,
+                edit: puzzle[i][j] == 0 ? true : false
+            });
+            counter++;
+        }
+    }
+    return grid;
+}
+
+// Game difficulty level
+export const level = (difficulty) => {
+    switch (difficulty) {
+        case 31:
+            return 'Easy';
+        case 41:
+            return 'Medium';
+        case 51:
+            return 'Hard';
+        case 61:
+            return 'Expert';
+        default:
+            return 'Easy';
+    }
 }
