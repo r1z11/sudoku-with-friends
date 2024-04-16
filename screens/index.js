@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, Pressable } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, TouchableOpacity, Modal, Pressable, Platform } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useDispatch, useSelector } from 'react-redux';
+import { Dimensions } from 'react-native';
 
 import Numpad from '../components/numpad';
 import SudokuGrid from '../components/grid';
@@ -11,6 +12,8 @@ import { formatTime, level } from '../utils/helpers';
 import { setDifficulty, setPuzzle } from '../store/puzzle/puzzleSlice';
 import { colours, levels } from '../utils/constants';
 
+const screenWidth = Dimensions.get('window').width;
+
 export default function Game() {
 
     const [seconds, setSeconds] = useState(0)
@@ -18,11 +21,19 @@ export default function Game() {
     const [modalVisible, setModalVisible] = useState(false);
 
     const puzzle = useSelector(state => state.puzzle.puzzle);
+    const originalPuzzle = useSelector(state => state.puzzle.originalPuzzle);
+    const solvedPuzzle = useSelector(state => state.puzzle.solvedPuzzle);
     const difficulty = useSelector(state => state.puzzle.difficulty);
+    const solved = useSelector(state => state.puzzle.solved);
 
     const [gameLevel, setGameLevel] = useState(level(difficulty));
 
     const dispatch = useDispatch();
+
+    // Update the level label when difficulty changes
+    useEffect(() => {
+        toggleTimer();
+    }, [solved]);
 
     // Update the level label when difficulty changes
     useEffect(() => {
@@ -60,11 +71,21 @@ export default function Game() {
         setIsRunning(true);
     };
 
+    // Set difficulty level
     const handleDifficulty = (level) => {
         dispatch(setDifficulty(level))
         dispatch(setPuzzle(generatePuzzle(level)));
         resetTimer();
         setModalVisible(false);
+    }
+
+    // Reset the game and timer
+    const restart = () => {
+        dispatch(setPuzzle({
+            puzzle: originalPuzzle,
+            solvedPuzzle: solvedPuzzle
+        }));
+        resetTimer();
     }
 
     return (
@@ -73,7 +94,8 @@ export default function Game() {
 
                 <View style={styles.header}>
                     <Text style={styles.timer}>{formatTime(seconds)}</Text>
-                    <TouchableOpacity onPress={() => resetTimer}>
+
+                    <TouchableOpacity onPress={() => restart()}>
                         <Ionicons style={styles.refreshBtn} name='refresh-outline' size={32} />
                     </TouchableOpacity>
                 </View>
@@ -153,7 +175,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         alignSelf: 'center',
-        width: '30%',
+        width: screenWidth > 500 ? '30%' : '80%',
         margin: 20,
         backgroundColor: 'white',
         borderRadius: 20,

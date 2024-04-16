@@ -60,7 +60,7 @@ export function createGrid(puzzle) {
             grid.push({
                 index: counter,
                 value: puzzle[i][j],
-                textColour: puzzle[i][j] == 0 ? colours.blue : colours.dark,
+                textColour: puzzle[i][j] == 0 ? '#0778fc' : colours.dark,
                 bgColour: colours.light,
                 edit: puzzle[i][j] == 0 ? true : false
             });

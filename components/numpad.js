@@ -9,26 +9,25 @@ export default function Numpad() {
     const dispatch = useDispatch();
 
     const cellSelected = useSelector(state => state.puzzle.cellSelected)
-    const puzzle = useSelector(state => state.puzzle.puzzle)
 
     return (
         <View style={styles.container}>
             <View style={styles.row}>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 1, index: cellSelected, puzzle }))}><Text style={styles.number}>1</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 2, index: cellSelected, puzzle }))}><Text style={styles.number}>2</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 3, index: cellSelected, puzzle }))}><Text style={styles.number}>3</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 1, index: cellSelected }))}><Text style={styles.number}>1</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 2, index: cellSelected }))}><Text style={styles.number}>2</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 3, index: cellSelected }))}><Text style={styles.number}>3</Text></TouchableOpacity>
             </View>
             <View style={styles.row}>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 4, index: cellSelected, puzzle }))}><Text style={styles.number}>4</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 5, index: cellSelected, puzzle }))}><Text style={styles.number}>5</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 6, index: cellSelected, puzzle }))}><Text style={styles.number}>6</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 4, index: cellSelected }))}><Text style={styles.number}>4</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 5, index: cellSelected }))}><Text style={styles.number}>5</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 6, index: cellSelected }))}><Text style={styles.number}>6</Text></TouchableOpacity>
             </View>
             <View style={styles.row}>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 7, index: cellSelected, puzzle }))}><Text style={styles.number}>7</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 8, index: cellSelected, puzzle }))}><Text style={styles.number}>8</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 9, index: cellSelected, puzzle }))}><Text style={styles.number}>9</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 7, index: cellSelected }))}><Text style={styles.number}>7</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 8, index: cellSelected }))}><Text style={styles.number}>8</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => dispatch(updateCell({ number: 9, index: cellSelected }))}><Text style={styles.number}>9</Text></TouchableOpacity>
             </View>
-            <TouchableOpacity onPress={() => dispatch(updateCell({ number: 0, index: cellSelected, puzzle }))}><Ionicons style={styles.btn} name='backspace-outline' size={32} /></TouchableOpacity>
+            <TouchableOpacity onPress={() => dispatch(updateCell({ number: 0, index: cellSelected }))}><Ionicons style={styles.btn} name='backspace-outline' size={32} /></TouchableOpacity>
         </View>
     );
 }

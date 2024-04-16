@@ -9,6 +9,8 @@ import { colours } from '../utils/constants';
 function SudokuGrid({ puzzle }) {
 
     const cellSelected = useSelector(state => state.puzzle.cellSelected);
+    const otherCellsSelected = useSelector(state => state.puzzle.otherCellsSelected);
+    const solved = useSelector(state => state.puzzle.solved);
 
     const dispatch = useDispatch();
 
@@ -16,8 +18,8 @@ function SudokuGrid({ puzzle }) {
     const renderCell = (object, index) => (
         <Pressable
             key={index}
-            style={[styles.cell, cellSelected == object.index ? styles.selectedCellBg : (themeCell(object.index) ? styles.darkBg : null)]}
-            onPress={() => dispatch(selectCell(object.index))}
+            style={[styles.cell, solved ? styles.solved : (otherCellsSelected.includes(object.index) && object.value > 0 ? styles.otherSelectedCellBg : (cellSelected == object.index ? styles.selectedCellBg : (themeCell(object.index) ? styles.darkBg : null)))]}
+            onPress={() => dispatch(selectCell({cell: object, puzzle}))}
         >
             <Text style={[styles.cellText, {color: object.textColour}]}>{object.value == 0 ? '' : object.value}</Text>
         </Pressable>
@@ -61,6 +63,12 @@ const styles = StyleSheet.create({
     },
     selectedCellBg: {
         backgroundColor: colours.darkGray
+    },
+    otherSelectedCellBg: {
+        backgroundColor: '#BBBBBB'
+    },
+    solved: {
+        backgroundColor: '#C1FF9B'
     }
 });
 

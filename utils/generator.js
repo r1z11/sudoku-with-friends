@@ -1,5 +1,6 @@
 import { createGrid } from "./helpers";
 
+
 export function generatePuzzle(emptyCells) {
     const grid = Array.from({ length: 9 }, () => Array(9).fill(0));
 
@@ -50,6 +51,9 @@ export function generatePuzzle(emptyCells) {
 
     // Fill the initial grid with a valid Sudoku
     solve();
+    // Solved array
+    let solvedGrid = grid;
+    let _solvedGrid = createGrid(solvedGrid);
 
     // Remove random numbers to create a puzzle
     for (let i = 0; i < emptyCells; i++) {
@@ -59,5 +63,9 @@ export function generatePuzzle(emptyCells) {
     }
 
     let newGrid = createGrid(grid);
-    return newGrid;
+
+    return {
+        puzzle: newGrid,
+        solvedPuzzle: _solvedGrid
+    }
 }
